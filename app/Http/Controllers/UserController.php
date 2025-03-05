@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         
-        $users = User::paginate(10);
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
         return view('users.index', compact('users'));
 
     }
@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -31,7 +31,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ]);
+
+        // $validatedData['name'] = $validatedData['first_name'] . ' ' . $validatedData['last_name'];
+        $validatedData['password'] = bcrypt($validatedData['password']);
+        
+        $user = User::create($validatedData);
+
+        return redirect()->route('users.index')
+            ->with('success', 'User created successfully.');
     }
 
     /**
