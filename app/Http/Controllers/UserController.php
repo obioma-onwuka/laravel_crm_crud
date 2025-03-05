@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -68,7 +68,29 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6',
+            ]);
+
+            if ($request->filled('password')) {
+            $validatedData['password'] = bcrypt($request->password);
+            } else {
+            unset($validatedData['password']);
+            }
+
+            $user->update($validatedData);
+
+            return redirect()->route('users.index')
+            ->with('success', 'User updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+            ->withInput()
+            ->withErrors(['error' => 'Failed to update user. Please try again.']);
+        }
     }
 
     /**
@@ -76,6 +98,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        try {
+            $user->delete();
+            return redirect()->route('users.index')
+                ->with('success', 'User deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to delete user.');
+        }
     }
 }
