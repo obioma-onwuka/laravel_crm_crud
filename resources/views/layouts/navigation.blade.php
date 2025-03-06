@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @role('admin')
+                    @role(App\RoleEnum::ADMIN)
 
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('Users') }}
@@ -83,7 +83,7 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            @role('admin')
+            @role(App\RoleEnum::ADMIN)
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                     {{ __('Users') }}
                 </x-responsive-nav-link>
