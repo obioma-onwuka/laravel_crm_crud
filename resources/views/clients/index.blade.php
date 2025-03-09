@@ -25,8 +25,10 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-white-500 uppercase">Name</th>
+                                                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-white-500 uppercase">Email</th>
+                                                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-white-500 uppercase">Phone</th>
                                                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-white-500 uppercase">Company Name</th>
-                                                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-white-500 uppercase">Company Address</th>
+                                                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-white-500 uppercase">City</th>
                                                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-white-500 uppercase">Action</th>
                                             </tr>
                                         </thead>
@@ -38,9 +40,16 @@
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-800">{{ $client->contact_name }}</td>
 
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-800">{{ $client->contact_email }}</td>
+
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-800">{{ $client->contact_phone_number }}</td>
+
+
+
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-800">{{ $client->company_name }}</td>
 
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-white-800">{{ $client->company_email }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-white-800">{{ $client->company_city }}</td>
+
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                                     <a href="{{ route('clients.edit', $client->id) }}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 mr-2">

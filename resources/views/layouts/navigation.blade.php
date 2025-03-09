@@ -25,6 +25,10 @@
                             {{ __('Create User') }}
                         </x-nav-link>
 
+                        <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
+                            {{ __('Clients') }}
+                        </x-nav-link>
+
                     @endrole
 
                 </div>
