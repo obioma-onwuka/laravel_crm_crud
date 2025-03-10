@@ -54,7 +54,12 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        try {
+            $client->update($request->validated());
+            return redirect()->route('clients.index')->with('success', 'Client updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating client: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -62,6 +67,14 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        try {
+            $client->delete();
+            return redirect()->route('clients.index')->with('success', 'Client deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error deleting client: ' . $e->getMessage());
+        }   
+        
     }
 }
+
+
